@@ -1,4 +1,3 @@
-
 // ==/UserScript==
 window.onload = function() {
     $("h2").replaceWith('<center><h2 style="font-family: Ubuntu; font-size: 200%;">Edition by MiShjne</h2></center>');
