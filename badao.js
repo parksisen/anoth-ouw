@@ -7,19 +7,6 @@ window.onload = function() {
     $( "#container" ).replaceWith("<a href='https://www.facebook.com/shjnereal.url/' target='_BLANK'><img src='https://i.imgur.com/8jsMtve.png' style='width: 100%; height: 100%;'></img></a>");
     
 };
-var New_WhiteBackgroundColor = '#000000';
-var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
-CanvasRenderingContext2D.prototype.fillRect = function() {
-    var x = arguments[0];
-    var y = arguments[1];
-    var w = arguments[2];
-    var h = arguments[3];
- 
-    if (x==0 && y==0 && w==this.canvas.width && h==this.canvas.height) {
-        if (this.fillStyle == '#f2fbff') { // agar.io white background color
-            this.fillStyle = New_WhiteBackgroundColor;
-        }
-    }
 window.addEventListener('keydown', keydown);
 window.addEventListener('keyup', keyup);
 var EjectDown = false;
@@ -60,7 +47,6 @@ function split() {
     $("body").trigger($.Event("keyup", { keyCode: 32})); //jquery is required for split to work
 }
 
-
 // @name         ~~
 // @version      0.03
 // @description  ~~
@@ -92,7 +78,7 @@ function split() {
     var duration = 1; //ms
 
     var overwriting = function(evt) {
-        if (evt.keyCode === 84) { // KEY_T
+        if (evt.keyCode === 84) { // KEY_E
             for (var i = 0; i < amount; ++i) {
                 setTimeout(function() {
                     window.onkeydown({keyCode: 87}); // KEY_W
@@ -103,14 +89,54 @@ function split() {
     };
 
     window.addEventListener('keydown', overwriting);
-})
-
+})();
+(function() {
+'use strict';
+ 
+var soundEnabled = true;
+ 
+var New_WhiteBackgroundColor = '#000000';
+ 
+var old_fillRect = CanvasRenderingContext2D.prototype.fillRect;
+CanvasRenderingContext2D.prototype.fillRect = function() {
+    var x = arguments[0];
+    var y = arguments[1];
+    var w = arguments[2];
+    var h = arguments[3];
+ 
+    if (x==0 && y==0 && w==this.canvas.width && h==this.canvas.height) {
+        if (this.fillStyle == '#f2fbff') { // agar.io white background color
+            this.fillStyle = New_WhiteBackgroundColor;
+        }
+    }
+ 
+    return old_fillRect.apply(this, arguments);
+};
+ 
+function calculateRemain(text) {
+    if (text.endsWith('s')) {
+        var match;
+ 
+        match = / in:? (\d+)s$/.exec(text);
+        if (match !== null) {
+            return parseInt(match[1], 10);
+        }
+ 
+        match = /^((\d+)m)? ?(\d+)s$/.exec(text);
+        if (match !== null) {
+            return (parseInt(match[2], 10) || 0) * 60 + parseInt(match[3], 10); // "x || 0" is "0 if x undefined"
+        }
+    }
+ 
+    return null;
+}
+ 
 var old_fillText = CanvasRenderingContext2D.prototype.fillText;
 CanvasRenderingContext2D.prototype.fillText = function() {
     if (arguments[0]=='Leaderboard') {
-        arguments[0] = '       JICT';
+        arguments[0] = '    𝚆𝚞𝚕𝙲𝚃 ' ;
     }
-    else if (window.location.href.indexOf('#battleroyale') >= 0 || window.location.href.indexOf('#teams') >= 0) {
+    else if (window.location.href.indexOf('#') >= 0 || window.location.href.indexOf('#') >= 0) {
         var PREFIX;
         PREFIX = 'Players ';
         if (arguments[0].indexOf(PREFIX) == 0) {
@@ -188,3 +214,8 @@ function doBeep(vol, freq, duration, type) {
  
     gainNode.gain.exponentialRampToValueAtTime(0.00001/*can't be 0*/, audioCtx.currentTime + duration);
     osc.stop(audioCtx.currentTime + duration);
+}
+ 
+
+ 
+})();
